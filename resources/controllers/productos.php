@@ -1,5 +1,7 @@
 <?php
 
+require_once 'conexion.php';
+
 class productos {
     public $id;
     public $nombre;
@@ -11,25 +13,28 @@ class productos {
     //Función para mostrar los productos.
     public function catalogoProductos():array {
        
-        $json = file_get_contents(__DIR__ . "/../data/productos.json");
-        $jsonData = json_decode($json);
+        $conexion = new Conexion();
+        $db = $conexion->getConexion();
+        $query = "SELECT * FROM productos";
+        $base = $db->prepare($query);
+        $base->execute();
         $catalogo = [];
 
     
-        foreach ($jsonData as $value) {
+        while ($column = $base->fetch(PDO::FETCH_ASSOC)) {
             $productos = new self();
-            $productos->id = $value->id;
-            $productos->nombre = $value->nombre;
-            $productos->categoria = $value->categoria;
-            $productos->precio = $value->precio;
-            $productos->descripcion = $value->descripcion;
-            $productos->imagen = $value->imagen;
+            $productos->id = $column['ID'];
+            $productos->nombre = $column['nombre_producto'];
+            $productos->categoria = $column['categoria_producto'];
+            $productos->precio = $column['precio_producto'];
+            $productos->descripcion = $column['descripcion_producto'];
+            $productos->imagen = $column['imagen_producto'];
             $catalogo[] = $productos;
         }
     
         return $catalogo;
     }
-    //Función para obtener el ID de cada producto
+    // Función para obtener el ID de cada producto
     public function traerId($id) {
         $catalogo = $this->catalogoProductos();
         $resultados = [];
