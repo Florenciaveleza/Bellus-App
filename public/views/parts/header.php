@@ -13,13 +13,14 @@
 define('IMG_URL', $imgURL);
 
 $navURL = 'http://localhost/APP/';
+include 'carritoLista.php';
 
 ?>
 
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="<?php echo $navURL . 'index.php'; ?>">
+      <a class="navbar-brand ms-5" href="<?php echo $navURL . 'index.php'; ?>">
         <img
           src="<?php echo IMG_URL; ?>"
           alt="skincare ecommerce"
@@ -50,7 +51,7 @@ $navURL = 'http://localhost/APP/';
             <a class="nav-link" href="<?php echo $navURL . 'public/views/template/consejos.php'; ?>">Consejos</a>
           </li>
         </ul>
-        <form class="d-flex ms-auto">
+        <!-- <form class="d-flex ms-auto" action="productos.php">
           <input
             class="form-control me-2"
             type="search"
@@ -58,8 +59,28 @@ $navURL = 'http://localhost/APP/';
             aria-label="Search"
           />
           <button class="btn btn-main" type="submit">Buscar</button>
-        </form>
-        <!-- <i class="fas fa-shopping-cart fa-lg mt-5 ms-3 me-5"></i> -->
+        </form> -->
+        <div class="ms-auto d-flex">
+          <div class="dropdown">
+            <button class="btn btn-outline-primary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Florencia
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href=#>Mi cuenta</a></li>
+              <li><a class="dropdown-item" href=#>Cerrar sesión</a></li>
+            </ul>
+          </div>
+          <button 
+            class="cart-button me-5 ms-3"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight">
+            <i 
+            class="fa-sharp fa-solid fa-cart-shopping fa-lg"
+            ></i>
+          </button>
+
+        </div>
       </div>
     </div>
   </nav>

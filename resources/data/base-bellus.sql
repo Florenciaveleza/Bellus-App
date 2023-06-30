@@ -15,8 +15,9 @@ CREATE TABLE `usuarios` (
   `ID` int(11) PRIMARY KEY AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
   `apellido` varchar(50) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `contraseña` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   `dni` varchar(100) DEFAULT NULL,
   `domicilio` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
