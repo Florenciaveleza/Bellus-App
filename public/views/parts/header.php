@@ -3,7 +3,7 @@
 
     $imgURL;
 
-    if (strpos($currentUrl, 'index.php') !== false) {
+    if (strpos($currentUrl, 'home.php') !== false) {
         $imgURL = 'public/views/assets/img/logo-bellus.svg';
     } else {
         $imgURL = 'http://localhost/APP/public/views/assets/img/logo-bellus.svg';
@@ -11,6 +11,17 @@
 
     
 define('IMG_URL', $imgURL);
+
+$logout;
+
+    if (strpos($currentUrl, 'home.php') !== false) {
+        $logout = 'resources/controllers/logout.php';
+    } else {
+        $logout = 'http://localhost/APP/resources/controllers/logout.php';
+    }
+
+    
+define('LOGOUT', $logout);
 
 $navURL = 'http://localhost/APP/';
 include 'carritoLista.php';
@@ -20,7 +31,7 @@ include 'carritoLista.php';
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand ms-5" href="<?php echo $navURL . 'index.php'; ?>">
+      <a class="navbar-brand ms-5" href="<?php echo $navURL . 'home.php'; ?>">
         <img
           src="<?php echo IMG_URL; ?>"
           alt="skincare ecommerce"
@@ -42,7 +53,7 @@ include 'carritoLista.php';
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="<?php echo $navURL . 'index.php'; ?>">Inicio</a>
+            <a class="nav-link" aria-current="page" href="<?php echo $navURL . 'home.php'; ?>">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo $navURL . 'public/views/template/catalogo.php'; ?>">Catalogo</a>
@@ -67,7 +78,7 @@ include 'carritoLista.php';
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" href=#>Mi cuenta</a></li>
-              <li><a class="dropdown-item" href=#>Cerrar sesión</a></li>
+              <li><a class="dropdown-item" href="<?php echo LOGOUT; ?>">Cerrar sesión</a></li>
             </ul>
           </div>
           <button 

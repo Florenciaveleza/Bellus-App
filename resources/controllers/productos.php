@@ -9,6 +9,7 @@ class productos {
     public $precio;
     public $descripcion;
     public $imagen;
+    public $stock;
 
     //Función para mostrar los productos.
     public function catalogoProductos():array {

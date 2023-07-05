@@ -8,60 +8,146 @@ class Carrito {
     public $producto_id;
     public $usuario_id;
     public $cantidad;
+    public $stock;
 
-    public function agregarProducto($productoId) {
+    public function obtenerCarrito($userId) {
         $conexion = new Conexion();
         $db = $conexion->getConexion();
-        $usuario_id = 1; // Suponiendo que tienes un usuario con ID 1
-        $cantidad = 1; // Cantidad inicial del producto
-
-        try {
-            $query = "INSERT INTO carrito (producto_id, usuario_id, cantidad) VALUES (:producto_id, :usuario_id, :cantidad)";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(':producto_id', $productoId);
-            $stmt->bindParam(':usuario_id', $usuario_id);
-            $stmt->bindParam(':cantidad', $cantidad);
-            $stmt->execute();
-
-            return true; 
-        } catch (PDOException $e) {
-            echo "Error al agregar el producto al carrito: " . $e->getMessage();
-            return false; 
-        }
-    }
-
-    public function obtenerCarrito() {
-        $conexion = new Conexion();
-        $db = $conexion->getConexion();
-        $query = "SELECT c.*, p.nombre_producto, p.descripcion_producto, p.precio_producto, p.imagen_producto 
-        FROM carrito c 
-        JOIN productos p 
-        ON c.producto_id = p.ID";
-        $base = $db->prepare($query);
-        $base->execute();
+        $query = 
+        "SELECT c.id, c.producto_id, c.cantidad, c.usuario_id, p.nombre_producto, p.imagen_producto, p.descripcion_producto, p.precio_producto, p.stock
+              FROM carrito c  
+              JOIN productos p ON c.producto_id = p.id
+              WHERE c.usuario_id = :usuario_id";
+              
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':usuario_id', $userId);
+        $stmt->execute();
         $carritoLista = [];
+        $contador = 0;
 
-        while ($column = $base->fetch(PDO::FETCH_ASSOC)) {
+        while ($column = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $carrito = new self();
-            $carrito->id = $column['ID'];
-            $carrito->producto_id = $column['producto_id'];
-            $carrito->usuario_id = $column['usuario_id'];
-            $carrito->cantidad = $column['cantidad'];
+            $carritoLista[$contador]['id'] = $column['id'];
+            // $carrito->producto_id = $column['producto_id'];
+            // $carrito->usuario_id = $column['usuario_id'];
+            $carritoLista[$contador]['cantidad']  = $column['cantidad'];
+            
 
             $producto = new productos();
-            $producto->id = $column['producto_id'];
-            $producto->nombre = $column['nombre_producto'];
-            $producto->descripcion = $column['descripcion_producto'];
-            $producto->precio = $column['precio_producto'];
-            $producto->imagen = $column['imagen_producto'];
+            // $producto->id = $column['producto_id'];
+            $carritoLista[$contador]['nombre'] = $column['nombre_producto'];
+            $carritoLista[$contador]['descripcion'] = $column['descripcion_producto'];
+            $carritoLista[$contador]['precio'] = $column['precio_producto'];
+            $carritoLista[$contador]['imagen'] = $column['imagen_producto'];
+            $contador = $contador + 1;
+            // $producto->stock = $column['stock'];
 
-            $carrito->producto = $producto;
+            // $carrito->producto = $producto;
 
-            $carritoLista[] = $carrito;
+            // $carritoLista[] = $carrito;
+        
         }
-
+        $carritoLista = json_decode(json_encode($carritoLista, JSON_FORCE_OBJECT));
         return $carritoLista;
     }
+    public function agregarProducto($productoId, $userId) {
+        $conexion = new Conexion();
+        $db = $conexion->getConexion();
+        $query = "SELECT id, cantidad FROM carrito WHERE producto_id = :producto_id AND usuario_id = :usuario_id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':producto_id', $productoId);
+        $stmt->bindParam(':usuario_id', $userId);
+        $stmt->execute();
+
+        $productoExiste = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($productoExiste) {
+            $carritoId = $productoExiste['id'];
+            $cantidadCarrito = $productoExiste['cantidad'];
+
+            $query = "UPDATE carrito SET cantidad = cantidad + 1 WHERE id = :carrito_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':carrito_id', $carritoId);
+            $stmt->execute();
+        }else {
+            $query = "INSERT INTO carrito (producto_id, usuario_id, cantidad) VALUES (:producto_id, :usuario_id, 1)";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':producto_id', $productoId);
+            $stmt->bindParam(':usuario_id', $userId);
+            $stmt->execute();
+        }
+        $query = "UPDATE productos SET stock = stock - 1 WHERE id = :id AND stock > 0";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $productoId);
+        $stmt->execute();
+
+    return true;
+
+    }
+
+    public function sumarProducto($productoId) {
+        $conexion = new Conexion();
+        $db = $conexion->getConexion();
+        $query = "SELECT id, cantidad FROM carrito WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $productoId);
+        $stmt->execute();
+
+        $productoExiste = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($productoExiste) {
+            $carritoId = $productoExiste['id'];
+            $cantidadCarrito = $productoExiste['cantidad'];
+
+            $query = "UPDATE carrito SET cantidad = cantidad + 1 WHERE id = :carrito_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':carrito_id', $carritoId);
+            $stmt->execute();
+        }
+        $query = "UPDATE productos SET stock = stock - 1 WHERE id = :id AND stock > 0";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $productoId);
+        $stmt->execute();
+
+    return true;
+
+    }
+
+    function eliminarProducto($productoId, $userId) {
+        $conexion = new Conexion();
+        $db = $conexion->getConexion();
+        $query = "SELECT id, cantidad FROM carrito WHERE id = :id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':id', $productoId);
+        $stmt->execute();
+    
+        $productoEnCarrito = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($productoEnCarrito) {
+            $carritoId = $productoEnCarrito['id'];
+            $cantidadCarrito = $productoEnCarrito['cantidad'];
+    
+            $query = "UPDATE carrito SET cantidad = cantidad - 1 WHERE id = :carrito_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':carrito_id', $carritoId);
+            $stmt->execute();
+    
+            if ($cantidadCarrito == 1) {
+                $query = "DELETE FROM carrito WHERE id = :carrito_id";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(':carrito_id', $carritoId);
+                $stmt->execute();
+            }
+    
+            $query = "UPDATE productos SET stock = stock - 1 WHERE id = :id";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':id', $productoId);
+            $stmt->execute();
+            
+        }
+    }
+
+
 }
 
 

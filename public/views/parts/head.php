@@ -6,8 +6,8 @@ $currentUrl = $_SERVER['REQUEST_URI'];
 
 $baseURL ;
 
-if (strpos($currentUrl, 'index.php') !== false) {
-    $baseURL = 'public/viewS/assets/css/style.css';
+if (strpos($currentUrl, 'home.php') !== false) {
+    $baseURL = 'public/views/assets/css/style.css';
 } else {
     $baseURL = 'http://localhost/APP/public/views/assets/css/style.css';
 }

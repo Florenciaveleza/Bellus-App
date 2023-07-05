@@ -3,7 +3,7 @@
 
     $footerURL;
 
-    if (strpos($currentUrl, 'index.php') !== false) {
+    if (strpos($currentUrl, 'home.php') !== false) {
         $footerURL = 'public/views/assets/img/logo-secundario.svg';
     } else {
         $footerURL = 'http://localhost/APP/public/views/assets/img/logo-secundario.svg';
@@ -15,7 +15,7 @@ define('FOOTER_URL', $footerURL);
 
 <footer class="footer-bg">
     <div class="m-5">
-    <a class="navbar-brand" href="index.php">
+    <a class="navbar-brand" href="home.php">
         <img
             src="<?php echo FOOTER_URL; ?>"
             alt="skincare ecommerce"
