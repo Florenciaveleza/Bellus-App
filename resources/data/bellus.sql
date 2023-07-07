@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-07-2023 a las 03:53:56
+-- Tiempo de generación: 06-07-2023 a las 02:00:27
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -33,6 +33,13 @@ CREATE TABLE `carrito` (
   `producto_id` int(11) NOT NULL,
   `cantidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id`, `usuario_id`, `producto_id`, `cantidad`) VALUES
+(176, 20, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -81,14 +88,14 @@ CREATE TABLE `productos` (
 
 INSERT INTO `productos` (`ID`, `nombre_producto`, `categoria_producto`, `precio_producto`, `descripcion_producto`, `imagen_producto`, `stock`) VALUES
 (1, 'Crema Nivea Hidratante Intensiva', 'Faciales', '436.00', 'Una crema hidratante facial para mantener tu piel sana y saludable: hidrata y protege.', 'crema-nivea.webp', 5),
-(2, 'Gel dermaglós limpiador facial', 'Faciales', '2750.00', 'Un gel limpiador facial suave y refrescante para eliminar impurezas y revitalizar.', 'gel-dermaglos.webp', 5),
-(3, 'Tónico facial dermaglós', 'Faciales', '2730.00', 'Un tónico facial revitalizante para equilibrar el pH y refrescar la piel.', 'tonico-dermaglos.webp', 5),
+(2, 'Gel dermaglós limpiador facial', 'Faciales', '2750.00', 'Un gel limpiador facial suave y refrescante para eliminar impurezas y revitalizar.', 'gel-dermaglos.webp', 0),
+(3, 'Tónico facial dermaglós', 'Faciales', '2730.00', 'Un tónico facial revitalizante para equilibrar el pH y refrescar la piel.', 'tonico-dermaglos.webp', 0),
 (4, 'Serum rellenador LOreal París', 'Faciales', '5923.00', 'Un serum antiarrugas con ingredientes naturales para reducir las arrugas.', 'serum-loreal.webp', 5),
-(5, 'Mascarilla para ojos Garnier', 'Faciales', '1253.00', 'Una mascarilla facial de arcilla purificante para limpiar los poros y revitalizar la piel.', 'mascarilla-garnier.webp', 5),
-(6, 'Crema corporal bajo la ducha Nivea', 'Corporales', '839.00', 'Una crema corporal para nutrir la piel del cuerpo.', 'nivea-corporal.webp', 5),
+(5, 'Mascarilla para ojos Garnier', 'Faciales', '1253.00', 'Una mascarilla facial de arcilla purificante para limpiar los poros y revitalizar la piel.', 'mascarilla-garnier.webp', 3),
+(6, 'Crema corporal bajo la ducha Nivea', 'Corporales', '839.00', 'Una crema corporal para nutrir la piel del cuerpo.', 'nivea-corporal.webp', 3),
 (7, 'Crema reparadora de manos Avene', 'Corporales', '5807.00', 'Repara, calma y protege las manos muy secas e irritadas', 'crema-avene.webp', 5),
-(8, 'Tónico Exfoliante corporal ACF By Dadatina', 'Corporales', '3190.00', 'Un exfoliante corporal suave que deja la piel renovada', 'exfoliante-acf.webp', 0),
-(9, 'Loción corporal nutritiva Cetaphil', 'Corporales', '5090.00', 'Una loción corporal para hidratar profundamente la piel', 'locion-cetaphil.webp', 0);
+(8, 'Tónico Exfoliante corporal ACF By Dadatina', 'Corporales', '3190.00', 'Un exfoliante corporal suave que deja la piel renovada', 'exfoliante-acf.webp', 5),
+(9, 'Loción corporal nutritiva Cetaphil', 'Corporales', '5090.00', 'Una loción corporal para hidratar profundamente la piel', 'locion-cetaphil.webp', 4);
 
 -- --------------------------------------------------------
 
@@ -97,7 +104,7 @@ INSERT INTO `productos` (`ID`, `nombre_producto`, `categoria_producto`, `precio_
 --
 
 CREATE TABLE `usuarios` (
-  `ID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nombre` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
@@ -108,9 +115,10 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`ID`, `nombre`, `email`, `password`, `privilegio`) VALUES
+INSERT INTO `usuarios` (`id`, `nombre`, `email`, `password`, `privilegio`) VALUES
 (1, 'flor', 'florencia@gmail.com', '1234', 'rf'),
-(20, 'Florencia', 'florenciaveleza@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', NULL);
+(20, 'Florencia', 'florenciaveleza@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', NULL),
+(21, 'flor', 'maria.velez@davinci.edu.ar', '827ccb0eea8a706c4c34a16891f84e7b', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -149,7 +157,7 @@ ALTER TABLE `productos`
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -159,7 +167,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
@@ -183,7 +191,7 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas

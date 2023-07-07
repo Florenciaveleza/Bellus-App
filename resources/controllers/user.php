@@ -22,16 +22,18 @@ class User {
         }
     }
 
-    // public function setUser($user){
+    public function getUsuarioPrivilegio($email) {
+        $config = require('config.php');
+        $db = new Database($config['database']);
+        $query = 'SELECT privilegio FROM usuarios WHERE email = :email';
+        $result = $db->query($query, ['email' => $email])->fetch();
 
-    //     $query = $this->connect()->prepare('SELECT * FROM usuarios WHERE email = :email');
-    //     $query->execute(['email' => $user]);
-        
-    //     foreach ($query as $currentUser) {
-    //         $this->nombre = $currentUser['nombre'];
-    //         $this->email = $currentUser['email'];
-    //     }
-    // }
+        if ($result) {
+            return $result['privilegio'];
+        } else {
+            return null;
+        }
+    }
     
 }
 ?>

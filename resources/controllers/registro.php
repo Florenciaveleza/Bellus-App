@@ -10,7 +10,7 @@ public function agregarUsuario($nameUser, $emailUser, $passUser) {
     $passmd5 = md5($passUser);
     $conexion = new Conexion(); 
     $db = $conexion->getConexion();
-    $sql = "INSERT INTO usuarios (nombre, email, password) VALUES (:nombre, :email, :password)";
+    $sql = "INSERT INTO usuarios (nombre, email, password, privilegio) VALUES (:nombre, :email, :password, 0)";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':nombre', $nameUser);
     $stmt->bindParam(':email', $emailUser);

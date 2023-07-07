@@ -2,19 +2,24 @@
 define('APP_ROOT', 'C:xampp/htdocs/App/');
 require_once  APP_ROOT . "resources/controllers/carrito.php";
 require_once APP_ROOT . "resources/controllers/productos.php";
+
+
+
 $carrito = new carrito;
 if (isset($_SESSION['user']['id'])) {
   $productosEnCarrito = $carrito->obtenerCarrito($_SESSION['user']['id']);
+  $total = $carrito->calcularTotal($_SESSION['user']['id']);
+
 } else {
   $productosEnCarrito = [];
 }
 
 
 
+
 $currentUrl = $_SERVER['REQUEST_URI'];
 
     $imgURL;
-
     if (strpos($currentUrl, 'home.php') !== false) {
         $imgURL = 'public/views/assets/img/';
     } else {
@@ -35,62 +40,68 @@ $currentUrl = $_SERVER['REQUEST_URI'];
       $rutaAgregar = 'http://localhost/APP/resources/controllers/sumarProducto.php';
   }
 
-?>
-    <section>
-            <div
-              class="offcanvas offcanvas-end"
-              tabindex="-1"
-              id="offcanvasRight"
-              aria-labelledby="offcanvasRightLabel"
-            >
-            <div class="offcanvas-header">
-            <h2 id="offcanvasRightLabel">Carrito</h2>
-            <button
-              type="button"
-              class="btn-close text-reset"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-            </div>
-            <div class="offcanvas-body">
-              <div class="container">
-              <?php foreach ($productosEnCarrito as $p) {?>
-                <div class="row ms-3">
-                </div>
-                <div class="row">
-                  <div class="col">
-                  <img src="<?php echo $imgURL . $p->imagen ?>" class="img-small" alt="producto">
+  $rutaCompra;
+    if (strpos($currentUrl, 'home.php') !== false) {
+      $rutaCompra = 'resources/controllers/vaciarCarrito.php';
+  } else {
+    $rutaCompra = 'http://localhost/APP/resources/controllers/vaciarCarrito.php';
+  }
 
-                  </div>
-                  <div class="col">
-                  <h3><a class="detalles-a" href="detalles.php?id=<?= $p->id ?>"><?php echo $p->nombre ?></a></h3>
-                    <p><?php echo $p->descripcion ?></p>
-                    <p>$ <?php echo $p->precio ?></p>
-                    <div class="d-flex cantidadCarrito align-items-center">
-                      <button onclick="eliminarProducto(<?php echo $p->id ?>, <?php echo $_SESSION['user']['id']?>)">-</button>
-                      <p class="text-center"><?php echo $p->cantidad ?></p>
-                      <button onclick="sumarProducto(<?php echo $p->id ?>, <?php echo $_SESSION['user']['id']?>)">+</button>
+  $gracias;
+    if (strpos($currentUrl, 'home.php') !== false) {
+      $gracias = 'public/views/template/gracias.php';
+  } else {
+    $gracias = 'http://localhost/APP/public/views/template/gracias.php';
+  }
+
+
+?>
+ <section>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header d-flex align-items-center">
+            <h2 id="offcanvasRightLabel">Carrito</h2>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="container">
+                <?php foreach ($productosEnCarrito as $p) { ?>
+                    <div class="row ms-3 carrito-item">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <img src="<?php echo $imgURL . $p->imagen ?>" class="img-small" alt="producto">
+                        </div>
+                        <div class="col">
+                            <h3><a class="detalles-a" href="detalles.php?id=<?= $p->id ?>"><?php echo $p->nombre ?></a></h3>
+                            <p><?php echo $p->descripcion ?></p>
+                            <p>$ <?php echo $p->precio ?></p>
+                            <div class="d-flex cantidadCarrito align-items-center">
+                                <button onclick="eliminarProducto(<?php echo $p->id ?>, <?php echo $_SESSION['user']['id'] ?>)">-</button>
+                                <p class="text-center"><?php echo $p->cantidad ?></p>
+                                <button onclick="sumarProducto(<?php echo $p->id ?>, <?php echo $_SESSION['user']['id'] ?>)">+</button>
+                            </div>
+                        </div>
+                        
                     </div>
                     
-                </div>
-                
-                
-              </div>
-              <?php } 
-
-              
-              ?>
+                <?php } ?>
             </div>
-            <?php if (!empty($productosEnCarrito)): ?>
-                <div class="mt-5 ms-2 container d-flex">
+            
+        </div>
+        <p class="ms-3">Total: $<?php echo $total; ?></p>
+        <?php if (!empty($productosEnCarrito)): ?>
+                <div class="mt-5 mb-5 ms-2 container d-flex">
+                    
                     <a href="" class="finalizar-btn">Finalizar compra <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             <?php endif; ?>
-            </div>
-        </section>
+    </div>
+</section>
 
-        <script>
+<script>
+
 function eliminarProducto(producto_id, user_id) {
+    
     $.ajax({
         type: "POST",
         url: "<?php echo $rutaEliminar; ?>",
@@ -109,6 +120,7 @@ function eliminarProducto(producto_id, user_id) {
 }
 
 function sumarProducto(producto_id, user_id) {
+    
     $.ajax({
         type: 'POST',
         url: "<?php echo $rutaAgregar; ?>",
@@ -125,5 +137,25 @@ function sumarProducto(producto_id, user_id) {
         }
     });
 }
+
+function finalizarCompra(user_id, total) {
+    $.ajax({
+        type: "POST",
+        url: "<?php echo $rutaCompra; ?>",
+        data: {
+            userId: user_id,
+            total: total 
+        },
+        success: function(response) {
+            $('.carrito-item').remove();
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+
 </script>
 

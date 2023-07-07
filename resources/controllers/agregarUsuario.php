@@ -9,7 +9,7 @@ $usuarios = new Usuarios();
   $password = $_POST['password'];
 
 
-  if ($usuarios->agregarUsuario($nombre, $email, $password)) {
+  if ($usuarios->agregarUsuario($nombre, $email, $password, $privilegio)) {
     echo "success";
   } else {
     echo "error";

@@ -25,4 +25,5 @@ define('BASE_URL', $baseURL);
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>">
     <title>BELLUS</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>

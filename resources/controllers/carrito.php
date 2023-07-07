@@ -147,6 +147,35 @@ class Carrito {
         }
     }
 
+    public function calcularTotal($userId) {
+        $conexion = new Conexion();
+        $db = $conexion->getConexion();
+
+        $query = "SELECT SUM(productos.precio_producto * carrito.cantidad) AS total 
+                FROM carrito 
+                INNER JOIN productos ON carrito.producto_id = productos.id 
+                WHERE carrito.usuario_id = :usuario_id";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':usuario_id', $userId);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $total = $result['total'];
+
+        return $total;
+    }
+
+    public function vaciarCarrito() {
+        $conexion = new Conexion();
+        $db = $conexion->getConexion();
+    
+        $query = "DELETE FROM carrito";
+        $base = $db->prepare($query);
+        $base->execute();
+    
+        return true;
+    }
+
 
 }
 

@@ -26,6 +26,9 @@ define('LOGOUT', $logout);
 $navURL = 'http://localhost/APP/';
 include 'carritoLista.php';
 
+require_once  APP_ROOT . "resources/controllers/usuarios.php";
+$usuarios = new Usuarios;
+
 ?>
 
 <header>
@@ -74,10 +77,13 @@ include 'carritoLista.php';
         <div class="ms-auto d-flex">
           <div class="dropdown">
             <button class="btn btn-outline-primary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Florencia
+            <?php
+              $nombreUsuario = isset($_SESSION['user']['nombre']) ? $_SESSION['user']['nombre'] : '';
+              $nombreUsuario = ucfirst($nombreUsuario);
+              echo $nombreUsuario;
+            ?>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href=#>Mi cuenta</a></li>
               <li><a class="dropdown-item" href="<?php echo LOGOUT; ?>">Cerrar sesión</a></li>
             </ul>
           </div>

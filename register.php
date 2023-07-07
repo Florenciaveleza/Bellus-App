@@ -24,9 +24,10 @@
     }
 ?>
 <body>
-    <div class="container mt-5 register">
+    <div class="container mt-5 form-login">
         <div class="row d-flex align-items-center justify-content-center">
             <div class="col-6">
+            <h2>registrarse</h2>
                 <form method="POST">
                     <div class="mb-3">
                         <label for="" class="form-label">Nombre</label>
@@ -40,9 +41,11 @@
                         <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                         <input type="password" name="passUser" class="form-control" id="exampleInputPassword1">
                     </div>
-                    <button type="submit" class="btn btn-primary">Registrarse</button>
-                    <a href="login.php">¿Ya tienes una cuenta? <span>Iniciar sesión<span></a>
+                    <button type="submit" class="btn btn-main">Registrarse</button>
                 </form>
+                <div class="mt-3 register-a">
+                        <a href="login.php">¿Ya tienes una cuenta? <span>Iniciar sesión</span></a>
+                    </div>
             </div>
         </div>
     </div>

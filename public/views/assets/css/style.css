@@ -255,3 +255,26 @@ color: var(--azul) !important;
     display: block;
   }
 }
+
+/*LOGIN / REGISTER*/
+
+.form-login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-login > .row {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.register-a a{
+  text-decoration: none !important;
+  color: var(--texto);
+}
+.register-a span {
+  color: var(--azul);
+  text-decoration: underline;
+}
