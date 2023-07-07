@@ -12,11 +12,11 @@ include  "public/views/parts/header.php";
 
 // Generar la tabla HTML
 echo '
-<div id="agregarProducto">
-<button id="agregarProducto">Agregar</button>
+<div id="agregarProducto" class="m-5 d-flex">
+<button id="agregarProducto" class="btn-secundario">Agregar</button>
 </div>
 
-<table>
+<table class="m-5 align-items-center justify-content-center">
   <thead>
     <tr>
       <th>id</th>
@@ -42,9 +42,9 @@ foreach ($Productos as $producto) {
       <td>' . $producto->stock . '</td>
       <td>
 
-      <button class="editar-producto" data-id="' . $producto->id . '" data-nombre="' . $producto->nombre . '" data-categoria="' . $producto->categoria . '" data-precio="' . $producto->precio . '" data-descripcion="' .  $producto->descripcion . '" data-imagen="' . $producto->imagen . '"data-stock = "' . $producto->stock . '">Editar</button>
+      <button class="editar-producto btn-secundario" data-id="' . $producto->id . '" data-nombre="' . $producto->nombre . '" data-categoria="' . $producto->categoria . '" data-precio="' . $producto->precio . '" data-descripcion="' .  $producto->descripcion . '" data-imagen="' . $producto->imagen . '"data-stock = "' . $producto->stock . '">Editar</button>
 
-      <button onclick="eliminarProducto(' . $producto->id . ')">Eliminar</button>
+      <button class="btn-secundario" onclick="eliminarProducto(' . $producto->id . ')">Eliminar</button>
       </td>
     </tr>';
 }
@@ -58,6 +58,7 @@ echo '
 <div id="modalEditar" class="modal">
   <div class="modal-content">
     <h2>Editar Producto</h2>
+    
     <form id="formularioEditar">
       <!-- Campos de edición -->
       <input type="text" id="editId" name="editId" placeholder="ID">
@@ -68,7 +69,8 @@ echo '
       <input type="text" id="editImagen" name="editImagen" placeholder="Imagen">
       <input type="text" id="editStock" name="editStock" placeholder="Imagen">
       <!-- Otros campos de edición -->      
-      <button type="button" id="guardarProducto" name="guardar" >Guardar</button>
+      
+      <button type="button" id="guardarProducto" name="guardar" class="btn-secundario" >Guardar</button>
     </form>
   </div>
 </div>
@@ -195,7 +197,11 @@ function eliminarProducto(id) {
 <!-- Modal Agregar Producto -->
 <div id="modalAgregar" class="modal">
   <div class="modal-content">
-    <h2>Agregar Producto</h2>
+    <div class="me-3 d-flex align-items-center justify-content-between">
+      <h2>Agregar Producto</h2>
+      <button type="button" id="cerrarModal" class="btn-close" aria-label="Close"></button>
+    </div>
+    
     <form id="formularioAgregar">
       <!-- Campos de edición -->
       <input type="text" id="addId" name="addId" placeholder="ID">
@@ -207,7 +213,7 @@ function eliminarProducto(id) {
       <input type="number" id="addStock" name="addStock" placeholder="Stock">
       <!-- Otros campos de edición -->
       
-      <button type="button" id="guardarProducto2" name="guardar" >Guardar</button>
+      <button type="button" id="guardarProducto2" name="guardar" class="btn-secundario">Guardar</button>
     </form>
   </div>
 </div>
@@ -227,7 +233,12 @@ $(document).on('click', '#agregarProducto', function() {
   // Mostrar el modal
   $('#modalAgregar').show();
 });
-
+//Cerrar modal
+$(document).ready(function() {
+  $("#cerrarModal").click(function() {
+    $("#modalAgregar").hide();
+  });
+});
 // Guardar producto
 
 $(document).on('click', '#guardarProducto2', function() {

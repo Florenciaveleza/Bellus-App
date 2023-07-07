@@ -278,3 +278,9 @@ color: var(--azul) !important;
   color: var(--azul);
   text-decoration: underline;
 }
+/*ADMIN*/
+
+#modalAgregar input {
+  border: solid 1px var(--gray);
+  border-radius: 5px;
+}

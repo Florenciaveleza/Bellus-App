@@ -4,6 +4,7 @@ require_once 'conexion.php';
 require_once 'usuarios.php'; 
 
 class Facturacion {
+
     public function insertarFacturacion($userId, $totalPago) {
         $conexion = new Conexion();
         $db = $conexion->getConexion();

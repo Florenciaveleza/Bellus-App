@@ -12,9 +12,8 @@ if (isset($_SESSION['user']['id'])) {
 
 } else {
   $productosEnCarrito = [];
+  
 }
-
-
 
 
 $currentUrl = $_SERVER['REQUEST_URI'];
@@ -44,7 +43,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
     if (strpos($currentUrl, 'home.php') !== false) {
       $rutaCompra = 'resources/controllers/vaciarCarrito.php';
   } else {
-    $rutaCompra = 'http://localhost/APP/resources/controllers/vaciarCarrito.php';
+    $rutaCompra = 'http://localhost/APP/resources/controllers/compra.php';
   }
 
   $gracias;
@@ -66,8 +65,6 @@ $currentUrl = $_SERVER['REQUEST_URI'];
             <div class="container">
                 <?php foreach ($productosEnCarrito as $p) { ?>
                     <div class="row ms-3 carrito-item">
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <img src="<?php echo $imgURL . $p->imagen ?>" class="img-small" alt="producto">
                         </div>
@@ -83,18 +80,23 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                         </div>
                         
                     </div>
-                    
                 <?php } ?>
+                
+                <?php if (isset($productosEnCarrito) && empty(get_object_vars($productosEnCarrito))) { 
+                        echo "Tu carrito está vacio";
+                 } else { ?>
+                    <p class="ms-3">Total: $<?php echo $total; ?></p>
+                    <div class="mt-5 mb-5 ms-2 container d-flex">
+                        <a href="<?php echo $gracias; ?>" class="finalizar-btn" onclick="finalizarCompra(<?php echo $_SESSION['user']['id']; ?>, <?php echo $total; ?>)">Finalizar compra <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                <?php }; ?>
             </div>
             
         </div>
-        <p class="ms-3">Total: $<?php echo $total; ?></p>
-        <?php if (!empty($productosEnCarrito)): ?>
-                <div class="mt-5 mb-5 ms-2 container d-flex">
-                    
-                    <a href="" class="finalizar-btn">Finalizar compra <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-            <?php endif; ?>
+        
+        
+
+
     </div>
 </section>
 
@@ -148,7 +150,6 @@ function finalizarCompra(user_id, total) {
         },
         success: function(response) {
             $('.carrito-item').remove();
-            console.log(response);
         },
         error: function(xhr, status, error) {
             console.error(error);
@@ -158,4 +159,3 @@ function finalizarCompra(user_id, total) {
 
 
 </script>
-
