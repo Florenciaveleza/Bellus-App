@@ -36,8 +36,12 @@ if (isset($_GET['id'])) {
                       <p class="precio">$ <?php echo $r->precio ?></p>
                       <p>Categoría: <?php echo $r->categoria ?></p>
                       <p><?php echo $r->descripcion ?></p>
-                      <button class="btn btn-main" onclick="agregarAlCarrito(<?php echo $r->id; ?>, <?php echo isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0; ?>)" id="agregar-carrito-btn">Agregar al carrito</button>
-
+                      <?php  
+                      if (isset($_SESSION['user']['id'])) { ?>
+                        <button class="btn btn-main" onclick="agregarAlCarrito(<?php echo $r->id; ?>, <?php echo isset($_SESSION['user']['id']) ? $_SESSION['user']['id'] : 0; ?>)" id="agregar-carrito-btn">Agregar al carrito</button>
+                      <?php } else { ?> 
+                        <button class="btn btn-main"><a href="../../../loguear.php">Agregar al carrito</a></button>
+                      <?php }?> 
                     </div>
                   </div>
                 </div>
