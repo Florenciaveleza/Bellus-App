@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 $currentUrl = $_SERVER['REQUEST_URI'];
 
     $imgURL;
@@ -80,43 +80,14 @@ $usuarios = new Usuarios;
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="<?php echo $navURL . 'index.php'; ?>">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo $navURL . 'public/views/template/catalogo.php'; ?>">Catalogo</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo $navURL . 'public/views/template/consejos.php'; ?>">Consejos</a>
-          </li>
-        </ul>
-        <!-- <form class="d-flex ms-auto" action="productos.php">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Lo mejor para tu piel"
-            aria-label="Search"
-          />
-          <button class="btn btn-main" type="submit">Buscar</button>
-        </form> -->
         <div class="ms-auto d-flex">
           <?php  
           if (!isset($_SESSION['user']['id'])) { ?>
             <a class="me-5 login" href="<?php echo LOGUEAR; ?>">Iniciar sesión <i class="fa-solid fa-user ps-2"></i></a>
           <?php 
           } else { ?>
-             <a class="login p-3" href="<?php echo LOGOUT; ?>">Cerrar sesión <i class="fa-solid fa-user ps-2"></i></a>
+             <a class="login p-3 me-5" href="<?php echo LOGOUT; ?>">Cerrar sesión <i class="fa-solid fa-user ps-2"></i></a>
           </div>
-            <button 
-            class="cart-button me-5 ms-3"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight">
-            <i 
-            class="fa-sharp fa-solid fa-cart-shopping fa-lg"
-            ></i>
-          </button>
           <?php } ?>
         </div>
       </div>

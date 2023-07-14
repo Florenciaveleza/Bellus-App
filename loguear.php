@@ -10,7 +10,8 @@ if ($userSession->usuarioLogueado()) {
     $currentUserPrivilege = $userSession->getCurrentUser()['privilegio'];
 
     if ($currentUserPrivilege == 1) {
-        include_once 'resources/controllers/admin/tabla.php';
+        header('Location: http://localhost/APP/resources/controllers/admin/tabla.php');
+        exit;
     } else {
         include_once 'public/views/template/home.php';
     }
@@ -25,7 +26,8 @@ if ($userSession->usuarioLogueado()) {
 
 
         if ($usuarioPriv == 1) {
-            include_once 'resources/controllers/admin/tabla.php';
+            header('Location: http://localhost/APP/resources/controllers/admin/tabla.php');
+            exit;
         } else {
             include_once 'public/views/template/home.php';
         }

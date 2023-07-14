@@ -1,13 +1,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <?php
-require_once "resources/controllers/productos.php";
+require_once "../productos.php";
 
 $objetoProductos= new productos;
 $Productos = $objetoProductos->catalogoProductos();
 
-include  "public/views/parts/head.php";
-include  "public/views/parts/header.php";
+include  "../../../public/views/parts/head.php";
+include  "../../../public/views/parts/headerAdmin.php";
 
 
 // Generar la tabla HTML
@@ -149,7 +149,7 @@ $('#guardarProducto').on('click', function() {
 console.log(data);
   // Enviar la solicitud AJAX al servidor
   $.ajax({
-    url: 'resources/controllers/admin/obtener_producto.php', // URL del script PHP que procesará la solicitud
+    url: 'obtener_producto.php', // URL del script PHP que procesará la solicitud
     method: 'POST',
     data: data,
     success: function(response) {
@@ -171,7 +171,7 @@ function eliminarProducto(id) {
   if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
     $.ajax({
       type: "POST",
-      url: "resources/controllers/admin/eliminar_producto.php",
+      url: "eliminar_producto.php",
       data: { id: id },
       success: function (response) {
 
@@ -188,11 +188,7 @@ function eliminarProducto(id) {
   }
   
 }
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"
-></script>
+
 </script>
 
 
@@ -257,7 +253,7 @@ $(document).on('click', '#guardarProducto2', function() {
   // Realizar la solicitud AJAX para guardar el producto
   $.ajax({
     type: "POST",
-    url: "resources/controllers/admin/guardar_producto.php",
+    url: "guardar_producto.php",
     data: {
       id: id,
       nombre: nombre,
@@ -282,3 +278,8 @@ $(document).on('click', '#guardarProducto2', function() {
 });
 
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"
+></script>
