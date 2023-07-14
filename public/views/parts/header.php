@@ -105,17 +105,7 @@ $usuarios = new Usuarios;
           if (!isset($_SESSION['user']['id'])) { ?>
             <a class="me-5 login" href="<?php echo LOGUEAR; ?>">Iniciar sesión <i class="fa-solid fa-user ps-2"></i></a>
           <?php } else { ?>
-            <div class="dropdown">
-            <button class="btn btn-outline-primary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            <?php
-              $nombreUsuario = isset($_SESSION['user']['nombre']) ? $_SESSION['user']['nombre'] : '';
-              $nombreUsuario = ucfirst($nombreUsuario);
-              echo $nombreUsuario;
-            ?>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="<?php echo LOGOUT; ?>">Cerrar sesión</a></li>
-            </ul>
+             <a class="login p-3" href="<?php echo LOGOUT; ?>">Cerrar sesión <i class="fa-solid fa-user ps-2"></i></a>
           </div>
             <button 
             class="cart-button me-5 ms-3"
