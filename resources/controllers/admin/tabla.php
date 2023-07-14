@@ -188,7 +188,11 @@ function eliminarProducto(id) {
   }
   
 }
-
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"
+></script>
 </script>
 
 
@@ -213,7 +217,7 @@ function eliminarProducto(id) {
       <input type="number" id="addStock" name="addStock" placeholder="Stock">
       <!-- Otros campos de edición -->
       
-      <button type="button" id="guardarProducto2" name="guardar" class="btn-secundario">Guardar</button>
+      <button type="button" id="guardarProducto2" name="guardar" class="btn-secundario mt-3">Guardar</button>
     </form>
   </div>
 </div>

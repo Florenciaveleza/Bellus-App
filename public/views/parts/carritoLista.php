@@ -3,17 +3,15 @@ define('APP_ROOT', 'C:xampp/htdocs/App/');
 require_once  APP_ROOT . "resources/controllers/carrito.php";
 require_once APP_ROOT . "resources/controllers/productos.php";
 
-
-
 $carrito = new carrito;
-if (isset($_SESSION['user']['id'])) {
-  $productosEnCarrito = $carrito->obtenerCarrito($_SESSION['user']['id']);
-  $total = $carrito->calcularTotal($_SESSION['user']['id']);
+ if (isset($_SESSION['user']['id'])) {
+    $productosEnCarrito = $carrito->obtenerCarrito($_SESSION['user']['id']);
+    $total = $carrito->calcularTotal($_SESSION['user']['id']);
 
-} else {
-  $productosEnCarrito = [];
+//  } else {
+    //$productosEnCarrito = [];
   
-}
+ }
 
 
 $currentUrl = $_SERVER['REQUEST_URI'];

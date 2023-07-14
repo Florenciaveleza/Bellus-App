@@ -6,35 +6,11 @@ include_once 'resources/controllers/user_session.php';
 $userSession = new UserSession();
 $user = new User();
 
+
 if ($userSession->usuarioLogueado()) {
-    $currentUserPrivilege = $userSession->getCurrentUser()['privilegio'];
-
-    if ($currentUserPrivilege == 1) {
-        include_once 'resources/controllers/admin/tabla.php';
-    } else {
-        include_once 'home.php';
-    }
-} elseif (isset($_POST['email']) && isset($_POST['password'])) {
-    $userForm = $_POST['email'];
-    $passForm = $_POST['password'];
-
-    if ($user->userExists($userForm, $passForm)) {
-        $usuarioPriv = $user->getUsuarioPrivilegio($userForm);
-
-        $userSession->setUsuarioPrivilegio($usuarioPriv);
-
-
-        if ($usuarioPriv == 1) {
-            include_once 'resources/controllers/admin/tabla.php';
-        } else {
-            include_once 'home.php';
-        }
-    } else {
-        $errorLogin = "Nombre de usuario y/o contraseña incorrectos";
-        include_once 'login.php';
-    }
+    include_once 'public/views/template/home.php';   
 } else {
-    include_once 'login.php';
+    include_once 'public/views/template/home.php';
 }
 
 ?>

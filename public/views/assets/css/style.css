@@ -95,7 +95,19 @@ color: var(--azul) !important;
 .form-control:focus {
   box-shadow: none;
 } */
+.login {
+  color: var(--texto);
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.login:hover {
+  text-decoration: underline;
+}
 
+.login i {
+  color: var(--texto);
+}
 /*Carrito*/
 .cart-button {
   background: none;

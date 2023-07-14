@@ -15,7 +15,7 @@
 
             if($usuarios->agregarUsuario($nameUser, $emailUser, $passUser)) {
                 echo "Usuario registrado correctamente";
-                header('Location: http://localhost/APP/home.php');
+                header('Location: http://localhost/APP/login.php');
                 exit;
             } else {
                 echo "Error al registrar usuario";
@@ -44,7 +44,7 @@
                     <button type="submit" class="btn btn-main">Registrarse</button>
                 </form>
                 <div class="mt-3 register-a">
-                        <a href="login.php">¿Ya tienes una cuenta? <span>Iniciar sesión</span></a>
+                        <a href="index.php">¿Ya tienes una cuenta? <span>Iniciar sesión</span></a>
                     </div>
             </div>
         </div>

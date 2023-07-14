@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <?php 
-  if (!isset($_SESSION['user']['id'])) {
-    session_start();
-  }
-  
-    include __DIR__ . "/public/views/parts/head.php";
+
+  include "public/views/parts/head.php";
 
 
 ?>
 
   <body>
     <?php
-    include __DIR__ . "/public/views/parts/header.php";
-    require_once "resources/controllers/productos.php";
-    $productos = new productos;
+    include  "public/views/parts/header.php";
+    // require_once "resources/controllers/productos.php";
+    // $productos = new productos;
 ?>
     <main>
       <section class="container-fluid" id="hero">
@@ -75,11 +72,9 @@
       </div>
     </section>
     <?php
-    include __DIR__ . "/public/views/parts/footer.php";
+    include "public/views/parts/footer.php";
 ?>
-  </body>
-
-  <script
+<script
     src="https://kit.fontawesome.com/2d24fe97a4.js"
     crossorigin="anonymous"
   ></script>
@@ -88,4 +83,7 @@
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
     crossorigin="anonymous"
   ></script>
+  </body>
+
+  
 </html>

@@ -17,7 +17,7 @@
         ?></h2>
         <p>Gracias por tu compra!</p>
         <img src="../assets/img/Foto-sobre-nosotros.png" class="img-fluid img-sm" alt="cosmetica">
-        <p>Orden #<?php  ?></p>
+
     </div>
     
 </section>

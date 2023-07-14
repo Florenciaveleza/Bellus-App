@@ -1,5 +1,5 @@
 <?php
-    $currentUrl = $_SERVER['REQUEST_URI'];
+$currentUrl = $_SERVER['REQUEST_URI'];
 
     $imgURL;
 
@@ -23,6 +23,30 @@ $logout;
     
 define('LOGOUT', $logout);
 
+$loguear;
+
+    if (strpos($currentUrl, 'home.php') !== false) {
+        $loguear = 'resources/controllers/logout.php';
+    } else {
+        $loguear = 'http://localhost/APP/loguear.php';
+    }
+
+    
+define('LOGUEAR', $loguear);
+
+$tabla;
+
+    if (strpos($currentUrl, 'home.php') !== false) {
+        $tabla = 'resources/controllers/admin/tabla.php';
+    } else {
+        $tabla = 'http://localhost/APP/resources/controllers/admin/tabla.php';
+    }
+
+    
+define('TABLA', $tabla);
+
+
+
 $navURL = 'http://localhost/APP/';
 include 'carritoLista.php';
 
@@ -41,7 +65,9 @@ $usuarios = new Usuarios;
           width="150"
           height="100"
         />
-      </a>
+      </a> 
+
+
       <button
         class="navbar-toggler"
         type="button"
@@ -56,7 +82,7 @@ $usuarios = new Usuarios;
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="<?php echo $navURL . 'home.php'; ?>">Inicio</a>
+            <a class="nav-link" aria-current="page" href="<?php echo $navURL . 'index.php'; ?>">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo $navURL . 'public/views/template/catalogo.php'; ?>">Catalogo</a>
@@ -75,7 +101,11 @@ $usuarios = new Usuarios;
           <button class="btn btn-main" type="submit">Buscar</button>
         </form> -->
         <div class="ms-auto d-flex">
-          <div class="dropdown">
+          <?php  
+          if (!isset($_SESSION['user']['id'])) { ?>
+            <a class="me-5 login" href="<?php echo LOGUEAR; ?>">Iniciar sesión <i class="fa-solid fa-user ps-2"></i></a>
+          <?php } else { ?>
+            <div class="dropdown">
             <button class="btn btn-outline-primary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             <?php
               $nombreUsuario = isset($_SESSION['user']['nombre']) ? $_SESSION['user']['nombre'] : '';
@@ -87,7 +117,7 @@ $usuarios = new Usuarios;
               <li><a class="dropdown-item" href="<?php echo LOGOUT; ?>">Cerrar sesión</a></li>
             </ul>
           </div>
-          <button 
+            <button 
             class="cart-button me-5 ms-3"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
@@ -96,7 +126,7 @@ $usuarios = new Usuarios;
             class="fa-sharp fa-solid fa-cart-shopping fa-lg"
             ></i>
           </button>
-
+          <?php } ?>
         </div>
       </div>
     </div>
