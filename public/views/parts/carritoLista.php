@@ -8,9 +8,6 @@ $carrito = new carrito;
     $productosEnCarrito = $carrito->obtenerCarrito($_SESSION['user']['id']);
     $total = $carrito->calcularTotal($_SESSION['user']['id']);
 
-//  } else {
-    //$productosEnCarrito = [];
-  
  }
 
 
@@ -46,9 +43,9 @@ $currentUrl = $_SERVER['REQUEST_URI'];
 
   $gracias;
     if (strpos($currentUrl, 'home.php') !== false) {
-      $gracias = 'public/views/template/gracias.php';
+      $gracias = 'public/views/template/pago.php';
   } else {
-    $gracias = 'http://localhost/APP/public/views/template/gracias.php';
+    $gracias = 'http://localhost/APP/public/views/template/pago.php';
   }
 
 

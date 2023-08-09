@@ -52,13 +52,15 @@ include 'carritoLista.php';
 
 require_once  APP_ROOT . "resources/controllers/usuarios.php";
 $usuarios = new Usuarios;
+require_once APP_ROOT . "resources/controllers/carrito.php";
+
 
 ?>
 
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand ms-5" href="<?php echo $navURL . 'home.php'; ?>">
+      <a class="navbar-brand ms-5" href="<?php echo $navURL . 'index.php'; ?>">
         <img
           src="<?php echo IMG_URL; ?>"
           alt="skincare ecommerce"
@@ -102,10 +104,13 @@ $usuarios = new Usuarios;
         </form> -->
         <div class="ms-auto d-flex">
           <?php  
-          if (!isset($_SESSION['user']['id'])) { ?>
+          if (!isset($_SESSION['user']['id'])) {?>
             <a class="me-5 login" href="<?php echo LOGUEAR; ?>">Iniciar sesión <i class="fa-solid fa-user ps-2"></i></a>
           <?php 
-          } else { ?>
+          } else { 
+            $carrito = new Carrito;
+            $contadorCarrito = $carrito->contadorCarrito($_SESSION['user']['id']);
+            ?>
              <a class="login p-3" href="<?php echo LOGOUT; ?>">Cerrar sesión <i class="fa-solid fa-user ps-2"></i></a>
           </div>
             <button 
@@ -115,7 +120,7 @@ $usuarios = new Usuarios;
             aria-controls="offcanvasRight">
             <i 
             class="fa-sharp fa-solid fa-cart-shopping fa-lg"
-            ></i>
+            ></i><span class="p-2"><?php echo $contadorCarrito ?></span>
           </button>
           <?php } ?>
         </div>

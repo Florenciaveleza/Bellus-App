@@ -48,7 +48,9 @@ class Carrito {
         
         }
         $carritoLista = json_decode(json_encode($carritoLista, JSON_FORCE_OBJECT));
-        return $carritoLista;
+         return $carritoLista;
+
+    
     }
     public function agregarProducto($productoId, $userId) {
         $conexion = new Conexion();
@@ -96,6 +98,7 @@ class Carrito {
         $productoExiste = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($productoExiste) {
+            
             $carritoId = $productoExiste['id'];
             $cantidadCarrito = $productoExiste['cantidad'];
 
@@ -176,6 +179,16 @@ class Carrito {
         return true;
     }
 
+    public function contadorCarrito($userId) {
+        $carrito = $this->obtenerCarrito($userId);
+        $contador = 0;
+    
+        foreach ($carrito as $item) {
+            $contador += $item->cantidad;
+        }
+    
+        return $contador;
+    }
 
 }
 

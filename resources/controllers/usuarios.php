@@ -32,7 +32,7 @@ class Usuarios {
    }
    
 
-public function guardarUsuario($id, $nombre, $email, $password, $privilegio) {
+   public function guardarUsuario($id, $nombre, $email, $password, $privilegio) {
     $passmd5 = md5($password);
     $conexion = new Conexion();
     $db = $conexion->getConexion();
