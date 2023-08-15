@@ -4,7 +4,7 @@ class Conexion {
     private const DB_SERVER = "localhost:3306";
     private const DB_USER = "root";
     private const DB_PASS = "";
-    private const DB_NAME = "bellus";
+    private const DB_NAME = "bellus_velez";
 
    public const DB_DSN = "mysql:host=".self::DB_SERVER.";dbname=".self::DB_NAME.";charset=utf8mb4";
 

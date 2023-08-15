@@ -7,7 +7,6 @@ $carrito = new carrito;
  if (isset($_SESSION['user']['id'])) {
     $productosEnCarrito = $carrito->obtenerCarrito($_SESSION['user']['id']);
     $total = $carrito->calcularTotal($_SESSION['user']['id']);
-
  }
 
 

@@ -9,7 +9,7 @@ class DB{
 
     public function __construct(){
         $this->host     = 'localhost:3306';
-        $this->db       = 'bellus';
+        $this->db       = 'bellus_velez';
         $this->user     = 'root';
         $this->password = "";
         $this->charset  = 'utf8mb4';
